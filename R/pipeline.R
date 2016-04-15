@@ -482,10 +482,10 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
       cat("\tzgrep -h -v '^SNP' ", adir, "/*out.gz | awk 'BEGIN{FS=", '"\\t";OFS="\\t";} {split($$1,coord,"[:_]"); print coord[1],coord[2],$$0;}', 
           "' | gzip >>", adir, '/ALL.out.txt.gz0 ; \\\n', sep='')
       cat('\tzcat ', adir, '/ALL.out.txt.gz0 | sort -T . -k 1,1 -k 2,2n | uniq | bgzip -f >', adir, '/ALL.out.txt.gz ; \\\n', sep='')
-      cat('\trm ', adir, '/ALL.out.txt.gz0\n\n', sep='')
+##       cat('\trm ', adir, '/ALL.out.txt.gz0\n\n', sep='')
       cat(adir, '/ALL.out.txt.gz.tbi: ', adir, '/ALL.out.txt.gz\n', sep='')
       cat('\ttabix -f -b 2 -e 2 ', adir, '/ALL.out.txt.gz ; \\\n', sep='')
-      cat('\trm ', adir, '/*out.gz\n\n', sep='')
+##      cat('\trm ', adir, '/*out.gz\n\n', sep='')
       #If cvlist defined, extract results
       if (!is.na(gtxpipe.models[modelid, "cvlist"]) && gtxpipe.models[modelid, "cvlist"] != '') {
         cat(adir, '/CV.out.txt.gz: ', adir, '/ALL.out.txt.gz.tbi\n',sep='')
