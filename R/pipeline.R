@@ -607,6 +607,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
 
       #Create bed file to tabix out genome-wide significant results
       if (sum(res1$pvalue.GC <= thresh1, na.rm = TRUE) > 0) {
+          ## TY: double check
         pipebed(snplist = res1[res1$pvalue.GC <= thresh1,"SNP"], flank = 500000, 
                 outfile = file.path(adir, "GenomeWideSignif.bed"))
         #Run tabix extraction

@@ -52,8 +52,8 @@ axis.by.chr <- function (chr, plotpos, side = 1, lines = 2) {
   return(tickpos)
 }
 
-manhattan <- function(p, SNP, chr, pos, ...) {
-  if (!missing(SNP)) {
+manhattan <- function(p, SNP = NULL, chr, pos, ...) {
+  if (length(SNP)) {
     chr <- vapply(strsplit(SNP, ":"), function(ss) return(ss[1]), character(1))
     pos <- as.integer(vapply(strsplit(SNP, "[:_]"), function(ss) return(ss[2]), character(1)))
   }
