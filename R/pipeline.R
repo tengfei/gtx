@@ -585,8 +585,19 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                      "PValues"),
                                    stringsAsFactors = FALSE))
       
+      .fun.man <- function(p, SNP, pch = 20, cex = 0.5, res1){
+          function(p = p, SNP = SNP, pch = pch, cex = cex, res1 = res1){
+              res1[ , manhattan(pvalue.GC = p, SNP = SNP, pch = pch, cex = cex)]
+          }
+      }
+      .fun.qq10 <- function(p, pch = 20, res1){
+          function(p = p, pch = pch, res1 = res1){
+              res1[ , qq10(pvalue.GC = p, pch = pch)]
+          }
+      }
+    
       ## Note, QQ and Manhattan plots are drawn *after* genomic control
-      assign("metadata", pipeplot('res1[ , qq10(pvalue.GC, pch = 20)]',
+      assign("metadata", pipeplot(.fun.qq10(pvalue.GC, res1 = res1),
                                   filename = paste("QQ", gtxpipe.models[modelid,"model"], agroup1, sep = "_"),
                                   title = paste("QQ plot for", gtxpipe.models[modelid,"model"], "in group", agroup1),
                                   metadata,
@@ -595,7 +606,9 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                   plotpar = list(mar = c(4, 4, 0, 0) + 0.1)),
              pos = parent.frame(n = 4))
       ## Have to use assign(..., pos = ) to update metadata from inside two levels of nested anonymous function
-      assign("metadata", pipeplot('res1[ , manhattan(pvalue.GC, SNP, pch = 20, cex = 0.5)]', 
+     
+      
+      assign("metadata", pipeplot(.fun.man(pvalue.GC, SNP, res1 = res1), 
                                   filename = paste("Manhattan", gtxpipe.models[modelid,"model"], agroup1, sep = "_"),
                                   title = paste("Manhattan plot for", gtxpipe.models[modelid,"model"], "in group", agroup1),
                                   metadata,
@@ -675,7 +688,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                      "PValues"),
                                    stringsAsFactors = FALSE))
       
-      assign("metadata", pipeplot('res1[ , qq10(pvalue.GC, pch = 20)]',
+      assign("metadata", pipeplot(.fun.qq10(pvalue.GC, res1 = res1),
                                   filename = paste("QQ", gtxpipe.models[modelid, "model"], group1, "vs", group2, sep = "_"),
                                   title = paste("QQ plot for", gtxpipe.models[modelid, "model"], "contrasting", group1, "vs", group2),
                                   metadata,
@@ -684,7 +697,8 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                   plotpar = list(mar = c(4, 4, 0, 0) + 0.1)),
              pos = parent.frame(n = 4))
       ## Have to use assign(..., pos = ) to update metadata from inside two levels of nested anonymous function
-      assign("metadata", pipeplot('res1[ , manhattan(pvalue.GC, SNP, pch = 20, cex = 0.5)]',
+      assign("metadata", pipeplot(.fun.man(pvalue.GC, SNP, res1 = res1), 
+         
                                   ## Note manhattan() must cope with missing pvalue.GC from SNPs in group1 but not in group2
                                   filename = paste("Manhattan", gtxpipe.models[modelid,"model"], group1, "vs", group2, sep = "_"),
                                   title = paste("Manhattan plot for", gtxpipe.models[modelid,"model"], "contrasting", group1, "vs", group2),
@@ -1030,7 +1044,8 @@ pipeplot <- function(plotfun, filename, title,
   
   screen(scs[2])
   if (!missing(plotpar)) oldpar <- do.call(par, as.list(plotpar)) else oldpar <- par()
-  eval.parent(parse(text = plotfun)) # was: eval(..., envir = parent.frame())
+  ## eval.parent(parse(text = plotfun)) # was: eval(..., envir = parent.frame())
+  plotfun()
   par(oldpar)
   close.screen(scs); dev.off()
   
