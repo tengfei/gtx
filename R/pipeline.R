@@ -607,7 +607,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
 
       #Create bed file to tabix out genome-wide significant results
       if (sum(res1$pvalue.GC <= thresh1, na.rm = TRUE) > 0) {
-        pipebed(snplist = res1[res1$pvalue.GC <= thresh1,SNP], flank = 500000, 
+        pipebed(snplist = res1[res1$pvalue.GC <= thresh1,"SNP"], flank = 500000, 
                 outfile = file.path(adir, "GenomeWideSignif.bed"))
         #Run tabix extraction
         message("gtxpipe: Extracting genome-wide significant results now")
@@ -703,14 +703,14 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
     
     ## Using the contrast names as part of column labels DOESN'T WORK
     return(do.call(rbind, lapply(names(resa), function(nn) {
-        message("nn: ", nn)
-        message("cvlist: ", cvlist)
-        # message("pvalue.GC: ", pvalue.GC)
-        # print(resa[[nn]][cvlist , pvalue.GC])
-        # print(str(resa[[nn]][cvlist , pvalue.GC]))
-        print(resa[[nn]])
-        print(str(resa[[nn]]))
-        pcv <- resa[[nn]][cvlist , ]$pvalue.GC
+        # message("nn: ", nn)
+        # message("cvlist: ", cvlist)
+        # # message("pvalue.GC: ", pvalue.GC)
+        # # print(resa[[nn]][cvlist , pvalue.GC])
+        # # print(str(resa[[nn]][cvlist , pvalue.GC]))
+        # print(resa[[nn]])
+        # print(str(resa[[nn]]))
+        pcv <- resa[[nn]][cvlist , "pvalue.GC"]
         ## pcv <- resa[[nn]][cvlist , pvalue.GC]
       data.frame(model = gtxpipe.models[modelid, "model"],
                  group = nn,
