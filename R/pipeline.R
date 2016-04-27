@@ -722,7 +722,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
         # # print(str(resa[[nn]][cvlist , pvalue.GC]))
         # print(resa[[nn]])
         # print(str(resa[[nn]]))
-        pcv <- resa[[nn]][cvlist , "pvalue.GC"]
+        ## pcv <- resa[[nn]][cvlist , ]$pvalue.GC
         ## pcv <- resa[[nn]][cvlist , pvalue.GC]
       data.frame(model = gtxpipe.models[modelid, "model"],
                  group = nn,
@@ -730,7 +730,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                  thresh1 = thresh1,
                  hits1 = resa[[nn]][ , paste(sum(pvalue.GC <= thresh1, na.rm = TRUE), sum(!is.na(pvalue.GC)), sep = "/")],
                  ## hits1 !is.na() for denomin as constrasts have NA pvalues
-                 hits2 = paste(sum(pcv <= thresh2, na.rm = TRUE), sum(!is.na(pcv)), sep = "/"),
+               ##  hits2 = paste(sum(pcv <= thresh2, na.rm = TRUE), sum(!is.na(pcv)), sep = "/"),
                  thresh2 = thresh2,
                  stringsAsFactors = FALSE)
     })))
