@@ -595,7 +595,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                   plotpar = list(mar = c(4, 4, 0, 0) + 0.1)),
              pos = parent.frame(n = 4))
       ## Have to use assign(..., pos = ) to update metadata from inside two levels of nested anonymous function
-      if(!missing(SNP)){
+      if(exists(SNP)){
           .eval = 'res1[ , manhattan(pvalue.GC, SNP, pch = 20, cex = 0.5)]'
       }else{
           .eval = 'res1[ , manhattan(pvalue.GC, pch = 20, cex = 0.5)]'
@@ -689,7 +689,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
                                   plotpar = list(mar = c(4, 4, 0, 0) + 0.1)),
              pos = parent.frame(n = 4))
       
-      if(!missing(SNP)){
+      if(exists(SNP)){
           .eval = 'res1[ , manhattan(pvalue.GC, SNP, pch = 20, cex = 0.5)]'
       }else{
           .eval = 'res1[ , manhattan(pvalue.GC, pch = 20, cex = 0.5)]'
