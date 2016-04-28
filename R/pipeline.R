@@ -715,14 +715,14 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
     
     ## Using the contrast names as part of column labels DOESN'T WORK
     return(do.call(rbind, lapply(names(resa), function(nn) {
-        # message("nn: ", nn)
+        message("nn: ", nn)
         # message("cvlist: ", cvlist)
         ## message("pvalue.GC: ", pvalue.GC)
         # # print(resa[[nn]][cvlist , pvalue.GC])
         # # print(str(resa[[nn]][cvlist , pvalue.GC]))
         print(head(resa[[nn]]))
         # print(str(resa[[nn]]))
-        pcv <- resa[[nn]][cvlist , ]$pvalue.GC
+        pcv <- resa[[nn]][cvlist , "pvalue.gc"]
         # pcv <- resa[[nn]][cvlist , pvalue.GC]
         message("df ..")
       data.frame(model = gtxpipe.models[modelid, "model"],
