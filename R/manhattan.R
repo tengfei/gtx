@@ -56,7 +56,7 @@ manhattan <- function(p, SNP = NULL, chr, pos, ...) {
   if (length(SNP)) {
     chr <- vapply(strsplit(SNP, ":"), function(ss) return(ss[1]), character(1))
     pos <- as.integer(vapply(strsplit(SNP, "[:_]"), function(ss) return(ss[2]), character(1)))
-  }
+
   plotpos <- plotpos.by.chr(chr, pos)
   plot(plotpos, -log10(p),
        col = plotcol.by.chr(chr, c("grey75", "cyan4")),
@@ -68,6 +68,7 @@ manhattan <- function(p, SNP = NULL, chr, pos, ...) {
   title(xlab = "Genomic position by chromosome", 
         ylab = expression(-log[10](paste(italic(P), "-value"))))
   box()
+  }
   return(invisible(NULL))
 }
 
