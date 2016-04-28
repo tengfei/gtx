@@ -568,7 +568,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
       ## pvalue from 'best' method, LRT or F test
       lambda <- res1[ , gclambda(pvalue)]
       setattr(res1, "lambda", lambda)
-      invisible(if (lambda > 1.) {
+      invisible(if (length(lambda) && lambda > 1.) {
         res1[ , pvalue := pchisq(qchisq(pvalue, df = 1, lower.tail = FALSE)/lambda, df = 1, lower.tail = FALSE)]
         ## overwrite, save memory
       })
