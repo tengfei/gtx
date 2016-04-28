@@ -722,7 +722,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
         # # print(str(resa[[nn]][cvlist , pvalue.GC]))
         print(head(resa[[nn]]))
         # print(str(resa[[nn]]))
-        pcv <- resa[[nn]][cvlist , "pvalue.gc"]
+        pcv <- resa[[nn]][cvlist , "pvalue.GC"]
         # pcv <- resa[[nn]][cvlist , pvalue.GC]
         message("df ..")
       data.frame(model = gtxpipe.models[modelid, "model"],
