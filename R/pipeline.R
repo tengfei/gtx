@@ -714,7 +714,10 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
     resa <- c(res, resc) # ... is not fast
     
     ## Using the contrast names as part of column labels DOESN'T WORK
-    return(do.call(rbind, lapply(names(resa), function(nn) {
+    ## should I remove 
+    .nms <- names(resa)
+    .nms <- .nms[!grepl("/", .nms)]
+    return(do.call(rbind, lapply(.nms, function(nn) {
         message("nn: ", nn)
       
         # # print(resa[[nn]][cvlist , pvalue.GC])
