@@ -568,7 +568,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
       ## pvalue from 'best' method, LRT or F test
       lambda <- res1[ , gclambda(pvalue)]
       setattr(res1, "lambda", lambda)
-      invisible(if (exists("lambda") && lambda > 1.) {
+      invisible(if (!is.na(lambda) && lambda > 1.) {
         res1[ , pvalue := pchisq(qchisq(pvalue, df = 1, lower.tail = FALSE)/lambda, df = 1, lower.tail = FALSE)]
         ## overwrite, save memory
       })
@@ -660,7 +660,7 @@ gtxpipe <- function(gtxpipe.models = getOption("gtxpipe.models"),
       res1 <- res[[group1]][res[[group2]], eval(ce)]
       lambda <- res1[ , median(chi2, na.rm = TRUE)/qchisq(0.5, df = 1, lower.tail = FALSE)]
       setattr(res1, "lambda", lambda) # This is a Wald-like test but it's the primary one for the contrast
-      invisible(if (exists("lambda") && lambda > 1.) {
+      invisible(if (!is.na(lambda) && lambda > 1.) {
         res1[ , pvalue.GC := pchisq(chi2/lambda, df = 1, lower.tail = FALSE)]
       } else {
         res1[ , pvalue.GC := pchisq(chi2, df = 1, lower.tail = FALSE)]
